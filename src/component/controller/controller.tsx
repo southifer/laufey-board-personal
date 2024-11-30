@@ -16,6 +16,8 @@ import {
   QrCode
 } from "lucide-react";
 import Table from "./table/table";
+import { LineChartComponent } from "./chart/Chart";
+import Notification from "./notification/Notification";
 
 interface BotDetails {
   age: number;
@@ -59,7 +61,7 @@ interface StatisticNumber {
 }
 
 export default function Controller() {
-  const [data, setData] = useState<DataItem[]>([]);  // Explicitly set the type of data to an array of DataItem
+  const [data, setData] = useState<DataItem[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState('');
   const numberFormat = (number: number) => new Intl.NumberFormat().format(number);
@@ -100,9 +102,11 @@ export default function Controller() {
     };
     
     fetchData();
+    const interval = setInterval(fetchData, 3000);
     
     return () => {
       isMounted = false;
+      clearInterval(interval);
     };
   }, []);
   
@@ -150,15 +154,21 @@ export default function Controller() {
       <div className="text-3xl mb-4 font-bold flex gap-2">
         Controller
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4 w-full mb-4">
+      <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4 w-full mb-4">
         <Card iconHeader={TrendingUp} headerName="Total Online" iconValue={UserRoundCheck} valueData={numberFormat(bot.totalOnline)}/>
         <Card iconHeader={TrendingDown} headerName="Total Offline" iconValue={UserMinus} valueData={numberFormat(bot.totalOffline)}/>
         <Card iconHeader={Siren} headerName="Total Banned" iconValue={UserRoundX} valueData={numberFormat(bot.totalBanned)}/>
         <Card iconHeader={SlidersHorizontal} headerName="Total Captcha" iconValue={QrCode} valueData={numberFormat(bot.totalCaptcha)}/>
         <Card iconHeader={Activity} headerName="Total Gems" iconValue={Gem} valueData={numberFormat(bot.totalGems)}/>
         <Card iconHeader={ChartSpline} headerName="Obtained Gems" iconValue={Sparkles} valueData={numberFormat(bot.totalObtained)}/>
+        <div className="col-span-2 md:col-span-2 lg:col-span-2 rounded-xl border border-secondary">
+          <LineChartComponent dataObject={data}/>
+        </div>
+        <div className="col-span-2 md:col-span-2 lg:col-span-1 h-full">
+          <Notification dataObject={data || []}/>
+        </div>
       </div>
-      <div>
+      <div className="shadow rounded-xl overflow-x-hidden">
         <Table dataObject={data || []}/>
       </div>
     </div>

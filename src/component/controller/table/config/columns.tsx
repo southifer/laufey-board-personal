@@ -1,5 +1,32 @@
-const numberFormat = (number: number) => new Intl.NumberFormat().format(number)
-export const columns = [
+import { ColDef } from 'ag-grid-community';
+
+const numberFormat = (number: number) => new Intl.NumberFormat().format(number);
+
+interface RowData {
+  server: string;
+  is_script_run: boolean;
+  is_account_secured: boolean;
+  name: string;
+  level: number;
+  age: number;
+  ping: number;
+  status: string;
+  google_status: string;
+  mail: string;
+  world: string;
+  task: string;
+  online_time: string;
+  malady: string;
+  malady_expiration: string;
+  proxy: string;
+  position: string;
+  gems: number;
+  obtained_gems: number;
+  mac: string;
+  rid: string;
+}
+
+export const columns: ColDef<RowData>[] = [
   {
     field: 'server',
     enableCellChangeFlash: true,
@@ -10,83 +37,83 @@ export const columns = [
     enableCellChangeFlash: true,
     headerName: 'Script',
     width: 100,
-    cellRenderer: (params: boolean) => params.value ? '✅' : '❌'
+    cellRenderer: (params: { value: boolean }) => params.value ? '✅' : '❌'
   },
   {
     field: 'is_account_secured',
     enableCellChangeFlash: true,
     headerName: 'Secured',
     width: 100,
-    cellRenderer: (params: boolean) => params.value ? '✅' : '❌'
+    cellRenderer: (params: { value: boolean }) => params.value ? '✅' : '❌'
   },
   {
     field: 'name',
     enableCellChangeFlash: true,
-    filter: "agTextColumnFilter",
+    filter: 'agTextColumnFilter',
   },
   {
     field: 'level',
     enableCellChangeFlash: true,
-    filter: "agNumberColumnFilter",
-    valueFormatter: (params: number) => `Lv. ${params.value}`,
+    filter: 'agNumberColumnFilter',
+    valueFormatter: (params: { value: number }) => `Lv. ${params.value}`,
   },
   {
     field: 'age',
     enableCellChangeFlash: true,
-    filter: "agNumberColumnFilter",
-    valueFormatter: (params: number) => `${params.value} days`,
+    filter: 'agNumberColumnFilter',
+    valueFormatter: (params: { value: number }) => `${params.value} days`,
   },
   {
     field: 'ping',
     enableCellChangeFlash: true,
-    filter: "agNumberColumnFilter",
-    valueFormatter: (params: number) => `${params.value} ms`,
+    filter: 'agNumberColumnFilter',
+    valueFormatter: (params: { value: number }) => `${params.value} ms`,
   },
   {
     field: 'status',
     enableCellChangeFlash: true,
-    filter: "agSetColumnFilter",
-    valueFormatter: (params) => {
-      const iconKey = params.value == "connected" ? "🟢" : "🔴"
+    filter: 'agSetColumnFilter',
+    valueFormatter: (params: { value: string }) => {
+      const iconKey = params.value === 'connected' ? '🟢' : '🔴';
       return params.value ? `${iconKey} ${params.value.toUpperCase()}` : '';
     }
   },
   {
     field: 'google_status',
     enableCellChangeFlash: true,
-    filter: "agSetColumnFilter",
-    valueFormatter: (params) => {
+    filter: 'agSetColumnFilter',
+    valueFormatter: (params: { value: string }) => {
       return params.value ? params.value.toUpperCase() : '';
     }
   },
   {
     field: 'mail',
     enableCellChangeFlash: true,
-    filter: "agTextColumnFilter"
+    filter: 'agTextColumnFilter'
   },
   {
     field: 'world',
     enableCellChangeFlash: true,
-    filter: "agTextColumnFilter"
+    filter: 'agTextColumnFilter'
   },
   {
     field: 'task',
     enableCellChangeFlash: true,
-    valueFormatter: (params) => {
+    valueFormatter: (params: { value: string }) => {
       return params.value ? params.value.toUpperCase() : '';
     }
   },
   {
     field: 'online_time',
     enableCellChangeFlash: true,
-    valueFormatter: (params) => {
+    valueFormatter: (params: { value: string }) => {
       return params.value ? params.value.toUpperCase() : '';
     }
   },
   {
     field: 'malady',
     enableCellChangeFlash: true,
-    filter: "agSetColumnFilter"
+    filter: 'agSetColumnFilter'
   },
   {
     field: 'malady_expiration',
@@ -95,7 +122,7 @@ export const columns = [
   {
     field: 'proxy',
     enableCellChangeFlash: true,
-    filter: "agSetColumnFilter"
+    filter: 'agSetColumnFilter'
   },
   {
     field: 'position',
@@ -104,25 +131,25 @@ export const columns = [
   {
     field: 'gems',
     enableCellChangeFlash: true,
-    filter: "agNumberColumnFilter",
-    valueFormatter: params => numberFormat(params .value),
+    filter: 'agNumberColumnFilter',
+    valueFormatter: (params: { value: number }) => numberFormat(params.value),
   },
   {
     field: 'obtained_gems',
     enableCellChangeFlash: true,
-    filter: "agNumberColumnFilter",
-    valueFormatter: params => numberFormat(params.value),
+    filter: 'agNumberColumnFilter',
+    valueFormatter: (params: { value: number }) => numberFormat(params.value),
   },
   {
     field: 'mac',
     enableCellChangeFlash: true,
     hide: true,
-    filter: "agTextColumnFilter",
+    filter: 'agTextColumnFilter',
   },
   {
     field: 'rid',
     enableCellChangeFlash: true,
     hide: true,
-    filter: "agTextColumnFilter",
+    filter: 'agTextColumnFilter',
   },
 ];

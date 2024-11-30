@@ -1,6 +1,7 @@
 import { columns } from "./columns";
+import { GridOptions } from "ag-grid-community";
 
-export const gridOptions = {
+export const gridOptions: GridOptions = {
   columnDefs: columns,
   rowGroupPanelShow: 'always',
   defaultColDef: {
