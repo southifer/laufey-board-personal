@@ -1,4 +1,4 @@
-import React, {useState, createContext, useContext, ReactNode, Suspense, lazy} from 'react';
+import React, {useState, createContext, useContext, ReactNode, Suspense, lazy, useEffect} from 'react';
 import { PanelRightClose, PanelRightOpen, LayoutDashboard, MonitorCheck } from "lucide-react";
 
 interface SidebarContextType {
@@ -16,7 +16,13 @@ interface SidebarProviderProps {
 }
 
 export const SidebarProvider = ({ children }: SidebarProviderProps) => {
-  const [isOpen, setIsOpen] = useState(false);
+  const storedIsOpen = localStorage.getItem('sidebarState') === 'true';
+  const [isOpen, setIsOpen] = useState<boolean>(storedIsOpen);
+  
+  useEffect(() => {
+    localStorage.setItem('sidebarState', isOpen ? 'true' : 'false');
+  }, [isOpen]);
+  
   const sidebarWidth = isOpen ? 256 : 64;
   
   return (

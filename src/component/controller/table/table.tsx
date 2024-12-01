@@ -260,7 +260,7 @@ const Table = ({ dataObject }: { dataObject: any}) => {
   
   return (
     <div
-      className="ag-theme-quartz h-[700px] overflow-y-scroll scrollbar-hide"
+      className="ag-theme-quartz h-[700px] rounded-xl overflow-y-scroll scrollbar-hide"
       style={gridStyles}
     >
       <AgGridReact

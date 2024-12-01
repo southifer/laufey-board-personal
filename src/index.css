@@ -3,6 +3,7 @@
 @tailwind utilities;
 
 body {
+  background: #0A0A0A;
   margin: 0;
   font-family: 'Geist';
   -webkit-font-smoothing: antialiased;
