@@ -35,7 +35,7 @@ class LogViewer {
   private regex = /(`[0-9!@#^&wobpqertascì$])([^`]*)/g;
   
   private parseDisplayName(displayName: string): string {
-    const parsed = displayName.replace(this.regex, (match, colorCode: GrowtopiaColorCode, text) => {  // Explicitly define colorCode as GrowtopiaColorCode
+    const parsed = displayName.replace(this.regex, (match, colorCode: GrowtopiaColorCode, text) => {
       const color = this.growtopiaColors[colorCode];
       if (color) {
         return `<span style="color:${color}">${text}</span>`;
@@ -44,7 +44,7 @@ class LogViewer {
       }
     });
     
-    const cleanedParsed = parsed.replace(/``/g, '').replace(/`/g, '').replace(/\$/g, ''); // Remove `$` and other unnecessary characters
+    const cleanedParsed = parsed.replace(/``/g, '').replace(/`/g, '').replace(/\$/g, '');
     
     return cleanedParsed.endsWith('``') ? cleanedParsed.slice(0, -2) : cleanedParsed;
   }

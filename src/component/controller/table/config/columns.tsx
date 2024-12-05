@@ -2,6 +2,13 @@ import { ColDef } from 'ag-grid-community';
 
 const numberFormat = (number: number) => new Intl.NumberFormat().format(number);
 
+interface InventoryProps {
+  id: number;
+  amount: number;
+  is_clothes: boolean;
+  name: string;
+}
+
 interface RowData {
   server: string;
   is_script_run: boolean;
@@ -15,6 +22,7 @@ interface RowData {
   mail: string;
   world: string;
   task: string;
+  inventory: InventoryProps[];
   online_time: string;
   malady: string;
   malady_expiration: string;
@@ -102,6 +110,14 @@ export const columns: ColDef<RowData>[] = [
     valueFormatter: (params: { value: string }) => {
       return params.value ? params.value.toUpperCase() : '';
     }
+  },
+  {
+    field: 'inventory',
+    enableCellChangeFlash: true,
+    filter: 'agSetColumnFilter',
+    valueFormatter: (params: { value: InventoryProps[] }) => {
+      return params.value ? String(`x${params.value.length}`) : '0'; // Convert length to string
+    },
   },
   {
     field: 'online_time',

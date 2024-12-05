@@ -1,5 +1,11 @@
 import React, {useState, createContext, useContext, ReactNode, Suspense, lazy, useEffect} from 'react';
-import { PanelRightClose, PanelRightOpen, LayoutDashboard, MonitorCheck } from "lucide-react";
+import {
+  PanelRightClose,
+  PanelRightOpen,
+  LayoutDashboard,
+  MonitorCheck,
+  FolderKanban
+} from "lucide-react";
 
 interface SidebarContextType {
   isOpen: boolean;
@@ -44,6 +50,7 @@ const Sidebar = () => {
   const menuItems = [
     { name: 'Dashboard', icon: LayoutDashboard, href: '/dashboard' },
     { name: 'Controller', icon: MonitorCheck, href: '/controller' },
+    { name: 'Bot Management', icon: FolderKanban, href: '/bot' },
   ];
   
   return (
@@ -59,7 +66,7 @@ const Sidebar = () => {
             !isOpen ? 'opacity-0 hidden' : 'opacity-100'
           }`}
         >
-          Mondstadt
+          Laufey
         </h2>
         <button
           onClick={() => setIsOpen(!isOpen)}

@@ -75,7 +75,7 @@ const Table = ({ dataObject }: { dataObject: any}) => {
   }
   
   const ContextMenu = (params: any) => {
-    if (!params) {
+    if (!params || !params.node || !params.node.data) {
       return [{name: 'Run Command'}]
     }
     return [
@@ -110,9 +110,30 @@ const Table = ({ dataObject }: { dataObject: any}) => {
         subMenu: params.node.data.inventory.map((item: InventoryItem) => ({
             name: `${item.id} | ${item.name} (x${item.amount})`,
             subMenu: [
-              {name: 'Trash'},
-              {name: 'Wear'},
-              {name: 'Drop'},
+              {
+                name: 'Trash',
+                action: async () => {
+                  const {default: Interface } = await import('./event/InterfaceEvent');
+                  const interfaceEvent = new Interface(params.node.data.server, params.node.data.index, item.id);
+                  interfaceEvent.trash()
+                }
+              },
+              {
+                name: 'Wear',
+                action: async () => {
+                  const {default: Interface } = await import('./event/InterfaceEvent');
+                  const interfaceEvent = new Interface(params.node.data.server, params.node.data.index, item.id);
+                  interfaceEvent.wear()
+                }
+              },
+              {
+                name: 'Drop',
+                action: async () => {
+                  const {default: Interface } = await import('./event/InterfaceEvent');
+                  const interfaceEvent = new Interface(params.node.data.server, params.node.data.index, item.id);
+                  interfaceEvent.drop()
+                }
+              },
             ]
           })
         )
@@ -131,6 +152,10 @@ const Table = ({ dataObject }: { dataObject: any}) => {
           const command = new Command(params.node.data.server, `{${selectedRows.join(',')}}`, '');
           await command.stopScript();
         },
+      },
+      "separator",
+      {
+        name: 'View details',
       },
       "separator",
       {
@@ -260,7 +285,7 @@ const Table = ({ dataObject }: { dataObject: any}) => {
   
   return (
     <div
-      className="ag-theme-quartz h-[700px] rounded-xl overflow-y-scroll scrollbar-hide"
+      className="ag-theme-quartz h-[900px] rounded-xl overflow-y-scroll scrollbar-hide"
       style={gridStyles}
     >
       <AgGridReact

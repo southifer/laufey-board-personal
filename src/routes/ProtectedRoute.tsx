@@ -4,8 +4,9 @@ import Cookies from 'js-cookie';
 
 const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const hasCookie = Cookies.get('auth_token');
+  const hasConfig = localStorage.getItem('userRecord');
 
-  if (!hasCookie) {
+  if (!hasCookie || !hasConfig) {
     return <Navigate to="/login" />;
   }
 

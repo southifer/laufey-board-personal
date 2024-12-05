@@ -18,6 +18,7 @@ import {
 import Table from "./table/table";
 import { LineChartComponent } from "./chart/Chart";
 import Notification from "./notification/Notification";
+import {useUser} from "../../context/UserContext";
 
 interface BotDetails {
   age: number;
@@ -64,15 +65,15 @@ export default function Controller() {
   const [data, setData] = useState<DataItem[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState('');
+  const { user } = useUser();
   const numberFormat = (number: number) => new Intl.NumberFormat().format(number);
-  const serverList: string[] = ['191.96.94.35'];
   
   useEffect(() => {
     let isMounted = true;
     
     const fetchData = async () => {
       try {
-        const result = await GetBotDetails(serverList);
+        const result = await GetBotDetails(user?.serverlist || []);
         if (isMounted) {
           const responseData = result
             .filter((res) => res !== null)
@@ -81,7 +82,7 @@ export default function Controller() {
                 ...item,
                 details: {
                   ...item.details,
-                  server: serverList[index],
+                  server: user?.serverlist[index],
                 },
                 id: item.details.name
               }))

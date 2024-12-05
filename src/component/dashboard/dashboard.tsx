@@ -40,13 +40,13 @@ export default function Dashboard() {
         }
       }
     };
-
-    if (user?.serverlist) {
-      fetchData();
-    }
+    
+    fetchData();
+    const interval = setInterval(fetchData, 8000);
     
     return () => {
       isMounted = false;
+      clearInterval(interval);
     };
   }, [user]);
 

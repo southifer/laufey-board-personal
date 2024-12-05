@@ -10,6 +10,7 @@ import { SidebarContext } from '../src/component/sidebar/Sidebar';
 const Login = lazy(() => import('./component/login/login'));
 const Dashboard = lazy(() => import('./component/dashboard/dashboard'));
 const Controller = lazy(() => import('./component/controller/controller'));
+const BotManagement = lazy(() => import('./component/bot/BotManagement'));
 
 function AppContent() {
   const location = useLocation();
@@ -54,6 +55,14 @@ function AppContent() {
               element={
                 <ProtectedRoute>
                   <Controller/>
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/bot"
+              element={
+                <ProtectedRoute>
+                  <BotManagement/>
                 </ProtectedRoute>
               }
             />
