@@ -1,5 +1,5 @@
 import { useEffect, useState, Suspense, lazy } from "react";
-import { Zap } from "lucide-react";
+import { ScrollText } from "lucide-react";
 import { LoaderCircle } from "lucide-react";
 import { ScrollArea } from "./component/ScrollArea"; // Import the custom ScrollArea
 
@@ -46,8 +46,8 @@ const Notification = ({ dataObject }: NotificationProps) => {
   
   return (
     <div className="rounded shadow-lg p-4 bg-[#18181B] border-secondary  sm:max-w-full lg:max-w-2xl mx-auto h-full">
-      <div className="text-xs mb-4 flex items-center gap-2 text-white">
-        <Zap className="w-4 h-4 text-yellow-500" />
+      <div className="text-xs mb-4 flex items-center gap-1 text-white">
+        <ScrollText className="w-3 h-3" />
         <span className="font-medium">Important Status</span>
       </div>
       <ScrollArea className="flex flex-col gap-1 p-1 text-xs w-full overflow-y-scroll scrollbar-hide rounded flex-grow">

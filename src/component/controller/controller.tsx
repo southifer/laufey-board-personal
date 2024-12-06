@@ -65,7 +65,7 @@ interface StatisticNumber {
 export default function Controller() {
   const [data, setData] = useState<DataItem[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState('');
+  const [error, setError] = useState('None');
   const { user } = useUser();
   const [selected, setSelectedRows] = useState<number[]>([]);
   const numberFormat = (number: number) => new Intl.NumberFormat().format(number);
@@ -99,6 +99,7 @@ export default function Controller() {
         }
       } finally {
         if (isMounted) {
+          setError('')
           setLoading(false);
         }
       }
@@ -112,10 +113,6 @@ export default function Controller() {
       clearInterval(interval);
     };
   }, []);
-  
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
   
   const handleSelect = (num: any) => {
     setSelectedRows(num)
