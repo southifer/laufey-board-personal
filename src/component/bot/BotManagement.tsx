@@ -58,9 +58,7 @@ const BotManagement = () => {
         if (error) {
           throw error;
         }
-        
-        console.log(data)
-        
+
         if (isMounted && data) {
           const parsedData = data
             .map((row: { bot_backup: string | object }) =>

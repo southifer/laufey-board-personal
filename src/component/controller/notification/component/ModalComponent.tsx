@@ -1,7 +1,8 @@
 import React, { useCallback, memo } from "react";
 import { ListCollapse } from "lucide-react";
-import { GetBotDetails } from "./api/GetBotDetails";
 import Swal from "sweetalert2";
+import { supabase } from "../../../../lib/supabase";
+import { useUser } from "../../../../context/UserContext";
 
 interface DialogComponentProps {
   details: {
@@ -23,24 +24,33 @@ interface BotBackupProps {
 }
 
 const DialogComponent = ({ details }: DialogComponentProps) => {
-
+  const { user } = useUser();
+  
   const loadData = useCallback(async () => {
     try {
-      const response = await GetBotDetails("admin", "admin");
+      const { data, error } = await supabase
+        .from("user_data")
+        .select("bot_backup")
+        .eq("username", user?.username)
+        .eq("password", user?.password);
       
-      if (!response.success) {
-        throw new Error(response.message || "Failed to load data.");
+      if (error) {
+        throw error;
       }
       
-      if (!Array.isArray(response.botBackup)) {
+      if (!data || !Array.isArray(data)) {
         throw new Error("Bot backup data is not in the expected format.");
       }
       
-      const findBot = response.botBackup.find(
+      const botBackup = data
+        .map((row: { bot_backup: string | object }) =>
+          typeof row.bot_backup === "string" ? JSON.parse(row.bot_backup) : row.bot_backup
+        )
+        .flat();
+      
+      const findBot = botBackup.find(
         (item: BotBackupProps) => item.mac === details.mac && item.rid === details.rid
       );
-      
-      console.table(findBot);
       
       if (!findBot) {
         throw new Error("No matching bot found.");
@@ -48,57 +58,59 @@ const DialogComponent = ({ details }: DialogComponentProps) => {
       
       return findBot;
     } catch (err) {
+      console.error("Error loading data:", err);
       throw err instanceof Error ? err : new Error("Failed to load data.");
     }
-  }, [details.mac, details.rid]);
+  }, [user, details]);
   
   const handleOpenChange = useCallback(() => {
     Swal.fire({
-      title: 'Loading data...',
-      text: 'Please wait while we load the bot details.',
+      title: "Loading data...",
+      text: "Please wait while we load the bot details.",
       showConfirmButton: false,
       allowOutsideClick: false,
-      background: '#1a1a1a',
+      background: "#1a1a1a",
       customClass: {
-        popup: '!border-2 !border-solid !border-secondary !bg-main',
-        title: '!text-white',
-        htmlContainer: '!text-white',
+        popup: "!border-2 !border-solid !border-secondary !bg-main",
+        title: "!text-white",
+        htmlContainer: "!text-white",
       },
       didOpen: () => {
         loadData()
           .then((botData) => {
             Swal.close();
+            
             const botDetailsHtml = Object.entries(botData)
               .map(([key, value]) => `
-              <div class="capitalize text-left mb-2">
-                <strong>${key}:</strong> ${value}
-              </div>
-            `)
-              .join('');
+                <div class="capitalize text-left mb-2">
+                  <strong>${key}:</strong> ${value}
+                </div>
+              `)
+              .join("");
             
             Swal.fire({
               html: `<div class="mt-4">${botDetailsHtml}</div>`,
-              confirmButtonText: 'Close',
-              background: '#1a1a1a',
+              confirmButtonText: "Close",
+              background: "#1a1a1a",
               customClass: {
-                popup: '!border-2 !border-solid !border-secondary !bg-main',
-                title: '!text-white',
-                htmlContainer: '!text-white',
+                popup: "!border-2 !border-solid !border-secondary !bg-main",
+                title: "!text-white",
+                htmlContainer: "!text-white",
               },
             });
           })
           .catch((err) => {
             Swal.close();
             Swal.fire({
-              title: 'Error',
+              title: "Error",
               text: err.message,
-              icon: 'error',
-              confirmButtonText: 'Close',
-              background: '#1a1a1a',
+              icon: "error",
+              confirmButtonText: "Close",
+              background: "#1a1a1a",
               customClass: {
-                popup: '!border-2 !border-solid !border-secondary !bg-main',
-                title: '!text-white',
-                htmlContainer: '!text-white',
+                popup: "!border-2 !border-solid !border-secondary !bg-main",
+                title: "!text-white",
+                htmlContainer: "!text-white",
               },
             });
           });

@@ -1,13 +1,24 @@
-import axios from "axios";
+import { supabase } from "../../../../../lib/supabase";
+import { useUser } from "../../../../../context/UserContext";
 
-export const GetBotDetails = async (username: string, password: string) => {
+export const GetBotDetails = async () => {
+  const { user } = useUser();
   try {
-    const response = await axios.get("https://api.laufey.my.id/view-bot-backup", {
-      params: { username, password },
-    });
-    return response.data;
+    const { data, error } = await supabase
+      .from("user_data")
+      .select("bot_backup")
+      .eq("username", user?.username)
+      .eq("password", user?.password);
+    
+    if (error) {
+      throw error;
+    }
+    
+    return data?.map((row: { bot_backup: string | object }) =>
+      typeof row.bot_backup === "string" ? JSON.parse(row.bot_backup) : row.bot_backup
+    ).flat();
   } catch (error) {
-    console.error("Error fetching user data:", error);
+    console.error("Error fetching bot_backup data:", error);
     throw error;
   }
 };
