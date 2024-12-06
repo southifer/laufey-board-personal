@@ -27,6 +27,14 @@ interface BotBackup {
   proxyCount: number;
 }
 
+interface ExportItem {
+  username: string;
+  password: string;
+  recovery: string;
+  mac: string;
+  rid: string;
+}
+
 const BotManagement = () => {
   const controller = new AbortController();
   const { user } = useUser();
@@ -378,6 +386,32 @@ const BotManagement = () => {
     }
   };
   
+  const exportData = (): void => {
+    // Find the full row data from `data` using the IDs from `selectedRowsId`
+    const exportItems: ExportItem[] = data
+      .filter((row: BotBackup) => selectedRowsId.includes(row.id))
+      .map((row: BotBackup) => ({
+        username: row.username,
+        password: row.password,
+        recovery: row.recovery,
+        mac: row.mac || '',
+        rid: row.rid || '',
+      }));
+    
+    const txtContent = exportItems
+      .map(item => Object.values(item).join("|"))
+      .join("\n");
+    
+    const blob = new Blob([txtContent], { type: 'text/plain' });
+    const url = window.URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = "exported_data.txt";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+  
   const ContextMenu = (params: any) => {
     if (!params) {
       return [{name: 'Run Command'}]
@@ -397,6 +431,11 @@ const BotManagement = () => {
             removeFromDatabase(selectedIds);
           }
         },
+        disabled: selectedRows.length === 0,
+      },
+      {
+        name: "Export Selected Rows",
+        action: exportData,
         disabled: selectedRows.length === 0,
       },
       "separator",

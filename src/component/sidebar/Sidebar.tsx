@@ -55,7 +55,7 @@ const Sidebar = () => {
   
   return (
     <aside
-      className={`fixed left-0 top-0 z-40 h-full flex flex-col border-r border-secondary bg-main transition-all duration-1550 ${
+      className={`fixed left-0 top-0 z-40 h-full flex flex-col border-r border-secondary bg-[#18181B] transition-all duration-1550 ${
         isOpen ? 'w-64' : 'w-16'
       }`}
     >
@@ -88,7 +88,7 @@ const Sidebar = () => {
             <div key={item.name} className="relative group">
               <a
                 href={item.href}
-                className={`flex items-center rounded-lg p-2 text-gray-600 dark:text-gray-400 hover:bg-secondary transition-all duration-500 ${
+                className={`flex items-center rounded-lg p-2 text-white hover:bg-main transition-all duration-500 ${
                   isOpen ? 'justify-start' : 'justify-center'
                 }`}
               >

@@ -14,9 +14,6 @@ export const gridOptions: GridOptions = {
   columnMenu: 'legacy',
   suppressMenuHide: true,
   animateRows: true,
-  statusBar: {
-    statusPanels: [{ statusPanel: "agSelectedRowCountComponent" }],
-  },
   autoGroupColumnDef: {
     minWidth: 300,
   }

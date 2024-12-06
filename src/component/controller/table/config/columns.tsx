@@ -39,6 +39,7 @@ export const columns: ColDef<RowData>[] = [
     field: 'server',
     enableCellChangeFlash: true,
     width: 100,
+    hide: true
   },
   {
     field: 'is_script_run',

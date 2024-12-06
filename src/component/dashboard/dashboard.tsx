@@ -54,7 +54,7 @@ export default function Dashboard() {
     <div className="bg-main text-white p-8 min-h-screen">
       <div className="text-3xl mb-4 font-bold flex gap-2">Dashboard</div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4 w-full mb-4">
-        <div className="rounded shadow p-4 select-none border border-secondary">
+        <div className="rounded shadow p-4 select-none  bg-[#18181B]">
           <h1 className="text-xs flex flex-row gap-1 mb-2">
             <Bot className="w-4 h-4 text-white"/>
             Bot Information
@@ -65,7 +65,7 @@ export default function Dashboard() {
             <p>Total Bots: x{user?.bot_backup.length}</p>
           </div>
         </div>
-        <div className="rounded shadow p-4 select-none border border-secondary">
+        <div className="rounded shadow p-4 select-none bg-[#18181B]">
           <h1 className="text-xs flex flex-row gap-1 mb-2">
             <BookCheck className="w-4 h-4 text-white"/>
             User Information

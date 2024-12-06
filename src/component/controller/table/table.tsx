@@ -14,6 +14,7 @@ interface InventoryItem {
   id: number;
   name: string;
   amount: number;
+  is_clothes: boolean;
 }
 
 interface BotDetails {
@@ -48,7 +49,7 @@ interface DataItem {
   details: BotDetails
 }
 
-const Table = ({ dataObject }: { dataObject: any}) => {
+const Table = ({ dataObject, getSelected }: { dataObject: any, getSelected: any}) => {
   const [mounted, setMounted] = useState(false);
   const [selectedRows, setSelectedRows] = useState([])
   
@@ -68,6 +69,7 @@ const Table = ({ dataObject }: { dataObject: any}) => {
   const onSelectionChanged = useCallback((event: any) => {
     const selectedIds = event.api.getSelectedRows().map((row: any) => row.index);
     setSelectedRows(selectedIds);
+    getSelected(selectedIds)
   }, []);
   
   if (!mounted) {
@@ -246,11 +248,11 @@ const Table = ({ dataObject }: { dataObject: any}) => {
     '--ag-font-size': currentTheme.text.fontSize,
     '--ag-header-font-family': currentTheme.header.fontFamily,
     '--ag-header-font-size': currentTheme.header.fontSize,
-    '--ag-header-font-weight': '1200',
+    '--ag-header-font-weight': '1400',
     '--ag-header-foreground-color': currentTheme.header.color,
     '--ag-foreground-color': currentTheme.text.color,
-    '--ag-borders': 'solid 1px',
-    '--ag-row-border-width': '1px',
+    // '--ag-borders': 'solid 1px',
+    // '--ag-row-border-width': '1px',
     '--ag-row-border-color': themeColors.borderColor,
     '--ag-border-radius': '0.75rem',
     '--ag-borders-critical': 'solid 1px',
@@ -278,7 +280,7 @@ const Table = ({ dataObject }: { dataObject: any}) => {
     '--ag-header-column-separator-display': 'block',
     '--ag-header-column-separator-color': themeColors.borderColor,
     '--ag-header-column-separator-height': '100%',
-    '--ag-alpine-active-color': themeColors.menuHoverColor,
+    '--ag-quartz-active-color': themeColors.menuHoverColor,
     
     overflow: 'hidden',
   };
@@ -296,6 +298,7 @@ const Table = ({ dataObject }: { dataObject: any}) => {
         getRowId={(params) => params.data.name}
         gridOptions={gridOptions}
         pagination
+        paginationPageSize={200}
         rowSelection={rowSelection}
         getContextMenuItems={ContextMenu}
         onSelectionChanged={onSelectionChanged}

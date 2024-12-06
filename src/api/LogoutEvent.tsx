@@ -18,9 +18,9 @@ const LogoutEvent: React.FC<LogoutEventProps> = ({ isOpen }) => {
   return (
     <button
       onClick={handleLogout}
-      className={`flex items-center text-gray-400 gap-2 ${isOpen ? 'justify-start' : 'justify-center'}`}
+      className={`flex items-center white gap-2 ${isOpen ? 'justify-start' : 'justify-center'}`}
     >
-      <LogOut className="w-5 h-5 text-gray-400 hover:text-gray-400 transition duration-150"/>
+      <LogOut className="w-5 h-5 white hover:white transition duration-150 flex-shrink-0"/>
       {isOpen && 'Logout'}
     </button>
   );

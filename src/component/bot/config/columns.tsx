@@ -1,7 +1,5 @@
 import { ColDef } from 'ag-grid-community';
 
-const numberFormat = (number: number) => new Intl.NumberFormat().format(number);
-
 interface RowData {
   id: number;
   server: string;

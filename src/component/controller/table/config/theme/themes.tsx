@@ -10,13 +10,13 @@ export const themes = {
     },
     text: {
       fontFamily: "Geist, sans-serif",
-      fontSize: "15px",
+      fontSize: "16px",
       fontWeight: "normal",
       color: "#FFFFFF",
     },
     header: {
       fontFamily: "Geist, sans-serif",
-      fontSize: "16px",
+      fontSize: "20px",
       fontWeight: 1200,
       color: "#FFFFFF",
     }

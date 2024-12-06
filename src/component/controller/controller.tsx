@@ -19,6 +19,7 @@ import Table from "./table/table";
 import { LineChartComponent } from "./chart/Chart";
 import Notification from "./notification/Notification";
 import {useUser} from "../../context/UserContext";
+import { CircleCheckBig, CircleX } from "lucide-react";
 
 interface BotDetails {
   age: number;
@@ -66,6 +67,7 @@ export default function Controller() {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState('');
   const { user } = useUser();
+  const [selected, setSelectedRows] = useState<number[]>([]);
   const numberFormat = (number: number) => new Intl.NumberFormat().format(number);
   
   useEffect(() => {
@@ -115,6 +117,10 @@ export default function Controller() {
     return <div>Error: {error}</div>;
   }
   
+  const handleSelect = (num: any) => {
+    setSelectedRows(num)
+  }
+
   const statisticNumber = data?.reduce<StatisticNumber>((bots, { details }) => {
     const { status, gems, obtained_gems, google_status } = details;
     
@@ -152,8 +158,27 @@ export default function Controller() {
   
   return (
     <div className="bg-main text-white p-8 min-h-screen">
-      <div className="text-3xl mb-4 font-bold flex gap-2">
-        Controller
+      <div className="mb-4 flex flex-col">
+        <div className="text-3xl font-bold">
+          Controller
+        </div>
+        <div className="text-[0.6em]">
+          {error === '' ? (
+            <>
+              <div className="text-green-500 flex flex-row gap-1">
+                <CircleCheckBig className="w-3 h-3"/>
+                connected to server
+              </div>
+            </>
+          ) : (
+            <>
+              <div className="text-red-500 flex flex-row gap-1">
+                <CircleX className="w-3 h-3"/>
+                disconnected from server
+              </div>
+            </>
+          )}
+        </div>
       </div>
       <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4 w-full mb-4">
         <Card iconHeader={TrendingUp} headerName="Total Online" iconValue={UserRoundCheck} valueData={numberFormat(bot.totalOnline)}/>
@@ -162,15 +187,20 @@ export default function Controller() {
         <Card iconHeader={SlidersHorizontal} headerName="Total Captcha" iconValue={QrCode} valueData={numberFormat(bot.totalCaptcha)}/>
         <Card iconHeader={Activity} headerName="Total Gems" iconValue={Gem} valueData={numberFormat(bot.totalGems)}/>
         <Card iconHeader={ChartSpline} headerName="Obtained Gems" iconValue={Sparkles} valueData={numberFormat(bot.totalObtained)}/>
-        <div className="col-span-2 md:col-span-2 lg:col-span-2 rounded-xl border border-secondary">
+        <div className="col-span-2 md:col-span-2 lg:col-span-2 rounded bg-[#18181B]">
           <LineChartComponent dataObject={data}/>
         </div>
-        <div className="col-span-2 md:col-span-2 lg:col-span-1 h-full">
+        <div className="col-span-2 md:col-span-2 lg:col-span-1 h-full ">
           <Notification dataObject={data || []}/>
         </div>
       </div>
-      <div className="shadow rounded-xl overflow-x-hidden">
-        <Table dataObject={data || []}/>
+      <div className="shadow rounded overflow-x-hidden bg-[#18181B]">
+        <div className="p-4">
+          <div className="mb-2">
+            selected x{selected.length}
+          </div>
+          <Table dataObject={data || []} getSelected={handleSelect}/>
+        </div>
       </div>
     </div>
   );

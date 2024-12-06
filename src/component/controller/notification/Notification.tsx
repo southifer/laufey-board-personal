@@ -45,12 +45,12 @@ const Notification = ({ dataObject }: NotificationProps) => {
   }, [dataObject]);
   
   return (
-    <div className="rounded-xl shadow-lg p-4 border bg-main border border-secondary  sm:max-w-full lg:max-w-2xl mx-auto h-full">
+    <div className="rounded shadow-lg p-4 bg-[#18181B] border-secondary  sm:max-w-full lg:max-w-2xl mx-auto h-full">
       <div className="text-xs mb-4 flex items-center gap-2 text-white">
         <Zap className="w-4 h-4 text-yellow-500" />
         <span className="font-medium">Important Status</span>
       </div>
-      <ScrollArea className="flex flex-col gap-1 p-1 text-xs w-full overflow-y-scroll scrollbar-hide rounded-lg flex-grow">
+      <ScrollArea className="flex flex-col gap-1 p-1 text-xs w-full overflow-y-scroll scrollbar-hide rounded flex-grow">
         {posts.length === 0 ? (
           <div className="flex justify-center items-center h-full text-gray-500 dark:text-gray-400">
             No data available
@@ -61,7 +61,7 @@ const Notification = ({ dataObject }: NotificationProps) => {
               return (
                 <div
                   key={index}
-                  className="mb-2 flex items-center justify-between px-3 py-2 bg-white rounded-lg shadow-sm dark:bg-[#121212] dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-[#1E1E1E] transition duration-150 ease-in-out"
+                  className="mb-1 flex items-center justify-between px-3 py-2 bg-white rounded shadow-sm dark:bg-[#121212] dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-[#1E1E1E] transition duration-150 ease-in-out"
                 >
                   {/* Left Section: Text */}
                   <div className="flex flex-col">
@@ -79,7 +79,7 @@ const Notification = ({ dataObject }: NotificationProps) => {
                     <Suspense
                       fallback={
                         <div className="flex justify-center items-center animate-spin">
-                          <LoaderCircle className="w-4 h-4 text-gray-500" />
+                          <LoaderCircle className="w-6 h-6 text-gray-500" />
                         </div>
                       }
                     >

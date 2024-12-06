@@ -10,7 +10,7 @@ interface CardProps {
 
 const Card: FC<CardProps> = ({ iconHeader: IconHeader, headerName, iconValue: IconValue, valueData }) => {
     return (
-        <div className="rounded-xl shadow p-4 select-none border border-secondary">
+        <div className="rounded shadow p-4 select-none bg-[#18181B]">
           <h1 className="text-xs flex flex-row gap-1 mb-2">
             <IconHeader className="w-3 h-3" />
             {headerName}
