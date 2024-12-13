@@ -4,7 +4,8 @@ import {
   PanelRightOpen,
   LayoutDashboard,
   MonitorCheck,
-  FolderKanban
+  FolderKanban,
+  CalendarCheck
 } from "lucide-react";
 
 interface SidebarContextType {
@@ -50,7 +51,8 @@ const Sidebar = () => {
   const menuItems = [
     { name: 'Dashboard', icon: LayoutDashboard, href: '/dashboard' },
     { name: 'Controller', icon: MonitorCheck, href: '/controller' },
-    { name: 'Bot Management', icon: FolderKanban, href: '/bot' },
+    { name: 'Bot', icon: FolderKanban, href: '/bot' },
+    { name: 'Config', icon: CalendarCheck, href: '/config' },
   ];
   
   return (
@@ -73,9 +75,9 @@ const Sidebar = () => {
           className="rounded-lg p-1.5 hover:bg-secondary focus:outline-none"
         >
           {isOpen ? (
-            <PanelRightOpen className="h-6 w-6 text-gray-600 dark:text-gray-400" />
+            <PanelRightOpen className="h-5 w-5 text-gray-600 dark:text-gray-400" />
           ) : (
-            <PanelRightClose className="h-6 w-6 text-gray-600 dark:text-gray-400" />
+            <PanelRightClose className="h-5 w-5 text-gray-600 dark:text-gray-400" />
           )}
         </button>
       </div>
@@ -88,7 +90,7 @@ const Sidebar = () => {
             <div key={item.name} className="relative group">
               <a
                 href={item.href}
-                className={`flex items-center rounded-lg p-2 text-white hover:bg-main transition-all duration-500 ${
+                className={`flex items-center rounded-lg p-2 text-gray-400 hover:bg-main transition-all duration-500 ${
                   isOpen ? 'justify-start' : 'justify-center'
                 }`}
               >
@@ -97,7 +99,7 @@ const Sidebar = () => {
               </a>
               {/* Tooltip */}
               {!isOpen && (
-                <div className="absolute left-full top-0 ml-6 hidden group-hover:block rounded-md bg-gray-900 px-2 py-1 text-xs font-medium text-white dark:bg-gray-700">
+                <div className="absolute left-full top-0 ml-6 hidden group-hover:block rounded-md bg-gray-900 px-2 py-1 text-xs font-medium text-gray-400 dark:bg-gray-700">
                   {item.name}
                 </div>
               )}

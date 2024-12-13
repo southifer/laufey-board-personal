@@ -10,30 +10,68 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+body, html {
+  overflow: auto;
+}
+
+body::-webkit-scrollbar,
+html::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+body::-webkit-scrollbar-button,
+html::-webkit-scrollbar-button {
+  background: #0A0A0A;
+}
+
+body::-webkit-scrollbar-track,
+html::-webkit-scrollbar-track {
+  background: #0A0A0A;
+  border-radius: 6px;
+}
+
+body::-webkit-scrollbar-thumb,
+html::-webkit-scrollbar-thumb {
+  border: 1px solid dimgray;
+  background: #18181B;
+  border-radius: 6px;
+}
+
+body::-webkit-scrollbar-thumb:hover,
+html::-webkit-scrollbar-thumb:hover {
+  background: #3f3f46;
+}
+
+body::-webkit-scrollbar-thumb:active,
+html::-webkit-scrollbar-thumb:active {
+  background: #52525b;
+}
+
 .ag-root ::-webkit-scrollbar {
-  width: 12px; /* Vertical scrollbar width */
-  height: 12px; /* Horizontal scrollbar height */
+  width: 12px;
+  height: 12px;
 }
 
 .ag-root ::-webkit-scrollbar-button {
-  background: #0A0A0A; /* Color for scrollbar buttons (up/down or left/right arrows) */
+  background: #0A0A0A;
 }
 
 .ag-root ::-webkit-scrollbar-track {
-  background: #0A0A0A; /* Track background */
-  border-radius: 6px; /* Rounded track corners */
+  background: #0A0A0A;
+  border-radius: 6px;
 }
 
 .ag-root ::-webkit-scrollbar-thumb {
   border: 1px solid dimgray;
-  background: #18181B; /* Thumb background */
-  border-radius: 6px; /* Rounded thumb corners */
+  background: #18181B;
+  border-radius: 6px;
 }
 
 .ag-root ::-webkit-scrollbar-thumb:hover {
-  background: #3f3f46; /* Thumb color on hover */
+  background: #3f3f46;
 }
 
 .ag-root ::-webkit-scrollbar-thumb:active {
-  background: #52525b; /* Thumb color when active (dragging) */
+  background: #52525b;
 }

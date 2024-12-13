@@ -11,6 +11,7 @@ const Login = lazy(() => import('./component/login/login'));
 const Dashboard = lazy(() => import('./component/dashboard/dashboard'));
 const Controller = lazy(() => import('./component/controller/controller'));
 const BotManagement = lazy(() => import('./component/bot/BotManagement'));
+const Config = lazy(() => import('./component/config/Config'));
 
 function AppContent() {
   const location = useLocation();
@@ -63,6 +64,14 @@ function AppContent() {
               element={
                 <ProtectedRoute>
                   <BotManagement/>
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/config"
+              element={
+                <ProtectedRoute>
+                  <Config/>
                 </ProtectedRoute>
               }
             />
