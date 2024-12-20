@@ -2281,8 +2281,8 @@ if farming then
 
     bot:setCountry('id')
 
-    if bot.level < 20 then
-        clearHistory(25)
+    if bot.level < 40 then
+        clearHistory(5)
     end
 
     while true do
