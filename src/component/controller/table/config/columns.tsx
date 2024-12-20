@@ -17,6 +17,7 @@ interface RowData {
   level: number;
   age: number;
   ping: number;
+  playtime: number;
   status: string;
   google_status: string;
   mail: string;
@@ -52,25 +53,35 @@ export const columns: ColDef<RowData>[] = [
     field: 'is_account_secured',
     enableCellChangeFlash: true,
     headerName: 'Secured',
-    width: 100,
+    width: 120,
     cellRenderer: (params: { value: boolean }) => params.value ? '✅' : '❌'
   },
   {
     field: 'name',
+    width: 150,
     enableCellChangeFlash: true,
     filter: 'agTextColumnFilter',
   },
   {
     field: 'level',
+    width: 100,
     enableCellChangeFlash: true,
     filter: 'agNumberColumnFilter',
     valueFormatter: (params: { value: number }) => `Lv. ${params.value}`,
   },
   {
     field: 'age',
+    width: 130,
     enableCellChangeFlash: true,
     filter: 'agNumberColumnFilter',
     valueFormatter: (params: { value: number }) => `${params.value} days`,
+  },
+  {
+    field: 'playtime',
+    width: 130,
+    enableCellChangeFlash: true,
+    filter: 'agNumberColumnFilter',
+    valueFormatter: (params: { value: number }) => `${params.value} hours`,
   },
   {
     field: 'ping',

@@ -72,8 +72,9 @@ const RunCommand = async (
         icon: 'info',
         text: script === 'nil' ? 'Script Executed!' : script,
         customClass: {
-          popup: 'dark:bg-[#0A0A0A] dark:border dark:border-[#262626]',
-          title: 'dark:text-white',
+          popup: '!border-2 !border-solid !border-secondary !bg-main',
+          title: '!text-white',
+          htmlContainer: '!text-white',
         },
       });
     }

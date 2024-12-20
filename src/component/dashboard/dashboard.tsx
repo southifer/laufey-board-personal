@@ -61,7 +61,6 @@ export default function Dashboard() {
           <div className="flex flex-col gap-1 mb-2 text-sm">
             <p>Router List: {user?.routerlist}</p>
             <p>Server List: {user?.serverlist}</p>
-            <p>Total Bots: x{user?.bot_backup.length}</p>
           </div>
         </div>
         <div className="rounded shadow p-4 select-none bg-[#18181B]">

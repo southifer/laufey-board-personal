@@ -264,14 +264,14 @@ const Table = ({ dataObject, getSelected }: { dataObject: any, getSelected: any}
             );
 
             const replaceBot = {
-              server: findBot.server,
-              username: findBot.username,
-              password: findBot.password,
-              recovery: findBot.recovery,
-              mac: params.node.data.mac,
-              rid: params.node.data.rid,
-              status: params.node.data.status,
-              proxy: params.node.data.proxy
+              Server: findBot.server,
+              Username: findBot.username,
+              Password: findBot.password,
+              Recovery: findBot.recovery,
+              Mac: params.node.data.mac,
+              Rid: params.node.data.rid,
+              Status: params.node.data.status,
+              Proxy: params.node.data.proxy
             }
 
             if (!findBot) {
