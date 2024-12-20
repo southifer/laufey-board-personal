@@ -83,9 +83,9 @@ class Command {
 
   public async disconnectBot(): Promise<void> {
     const script = this.generateLoopScript(`
-            bot.auto_reconnect = false
-            bot:disconnect()
-        `);
+        bot.auto_reconnect = false
+        bot:disconnect()
+    `);
     await this.executeScriptRequest(script, 'disconnect bot');
   }
 

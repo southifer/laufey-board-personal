@@ -142,9 +142,9 @@ export default function Controller() {
     totalGems: 0,
     totalObtained: 0,
     totalCaptcha: 0,
-  }) || { totalOnline: 0, totalOffline: 0, totalBanned: 0, totalGems: 0, totalObtained: 0, totalCaptcha: 0 }; // Fallback value if data is undefined
+  }) || { totalOnline: 0, totalOffline: 0, totalBanned: 0, totalGems: 0, totalObtained: 0, totalCaptcha: 0 };
   
-  const bot = loading ? {
+  const statsBot = loading ? {
     totalOnline: 0,
     totalOffline: 0,
     totalBanned: 0,
@@ -178,18 +178,18 @@ export default function Controller() {
         </div>
       </div>
       <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4 w-full mb-4">
-        <Card iconHeader={TrendingUp} headerName="Total Online" iconValue={UserRoundCheck} valueData={numberFormat(bot.totalOnline)}/>
-        <Card iconHeader={TrendingDown} headerName="Total Offline" iconValue={UserMinus} valueData={numberFormat(bot.totalOffline)}/>
-        <Card iconHeader={Siren} headerName="Total Banned" iconValue={UserRoundX} valueData={numberFormat(bot.totalBanned)}/>
-        <Card iconHeader={SlidersHorizontal} headerName="Total Captcha" iconValue={QrCode} valueData={numberFormat(bot.totalCaptcha)}/>
-        <Card iconHeader={Activity} headerName="Total Gems" iconValue={Gem} valueData={numberFormat(bot.totalGems)}/>
-        <Card iconHeader={ChartSpline} headerName="Obtained Gems" iconValue={Sparkles} valueData={numberFormat(bot.totalObtained)}/>
-        <div className="col-span-2 md:col-span-2 lg:col-span-2 rounded bg-[#18181B]">
+        <Card iconHeader={TrendingUp} headerName="Total Online" iconValue={UserRoundCheck} valueData={numberFormat(statsBot.totalOnline)}/>
+        <Card iconHeader={TrendingDown} headerName="Total Offline" iconValue={UserMinus} valueData={numberFormat(statsBot.totalOffline)}/>
+        <Card iconHeader={Siren} headerName="Total Banned" iconValue={UserRoundX} valueData={numberFormat(statsBot.totalBanned)}/>
+        <Card iconHeader={SlidersHorizontal} headerName="Total Captcha" iconValue={QrCode} valueData={numberFormat(statsBot.totalCaptcha)}/>
+        <Card iconHeader={Activity} headerName="Total Gems" iconValue={Gem} valueData={numberFormat(statsBot.totalGems)}/>
+        <Card iconHeader={ChartSpline} headerName="Obtained Gems" iconValue={Sparkles} valueData={numberFormat(statsBot.totalObtained)}/>
+        <div className="col-span-2 md:col-span-3 lg:col-span-3 rounded bg-[#18181B]">
           <LineChartComponent dataObject={data}/>
         </div>
-        <div className="col-span-2 md:col-span-2 lg:col-span-1 h-full ">
+        {/* <div className="col-span-2 md:col-span-2 lg:col-span-1 h-full ">
           <Notification dataObject={data || []}/>
-        </div>
+        </div> */}
       </div>
       <div className="shadow rounded overflow-x-hidden bg-[#18181B]">
         <div className="p-4">

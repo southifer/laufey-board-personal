@@ -38,7 +38,7 @@ const Login: React.FC = () => {
         path: '/',
         sameSite: 'Strict',
       });
-
+      
       navigate("/dashboard");
     } catch (error: any) {
       toast.error(error.message || "Login failed. Please try again.");

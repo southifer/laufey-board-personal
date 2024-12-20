@@ -110,7 +110,7 @@ const Config = () => {
                     id="server-select"
                     value={selectedIndex}
                     onChange={handleSelectChange}
-                    className="w-full bg-main  text-gray-200 text-sm pl-3 pr-8 py-2 transition duration-300 ease rounded shadow-sm appearance-none cursor-pointer"
+                    className="w-full bg-main  text-gray-200 text-sm pl-3 pr-8 py-2 transition duration-300 ease rounded shadow-sm cursor-pointer"
                   >
                     {config.map((item, index) => (
                       <option key={index} value={index}>

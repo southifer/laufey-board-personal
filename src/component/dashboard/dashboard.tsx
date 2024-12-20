@@ -14,7 +14,6 @@ interface User {
   details: UserDetails;
 }
 
-
 const Card = lazy(() => import('./card/Card'));
 
 export default function Dashboard() {

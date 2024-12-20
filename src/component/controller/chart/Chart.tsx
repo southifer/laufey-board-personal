@@ -46,7 +46,7 @@ export function LineChartComponent({ dataObject }: LineChartComponentProps) {
   return (
     <div className="mb-2 mt-4">
       <Card className="max-w-full mx-auto" style={{backgroundColor: '#18181B'}}>
-        <CardContent className="p-4">
+        <CardContent className="p-2">
           <ResponsiveContainer width="100%" height={300}>
             <LineChart data={chartData}>
               <CartesianGrid strokeDasharray="5 5" stroke="#555"/>

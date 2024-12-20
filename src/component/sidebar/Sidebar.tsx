@@ -3,9 +3,9 @@ import {
   PanelRightClose,
   PanelRightOpen,
   LayoutDashboard,
-  MonitorCheck,
-  FolderKanban,
-  CalendarCheck
+  SquareTerminal,
+  Bot,
+  PackageCheck
 } from "lucide-react";
 
 interface SidebarContextType {
@@ -50,9 +50,9 @@ const Sidebar = () => {
   
   const menuItems = [
     { name: 'Dashboard', icon: LayoutDashboard, href: '/dashboard' },
-    { name: 'Controller', icon: MonitorCheck, href: '/controller' },
-    { name: 'Bot', icon: FolderKanban, href: '/bot' },
-    { name: 'Config', icon: CalendarCheck, href: '/config' },
+    { name: 'Controller', icon: SquareTerminal, href: '/controller' },
+    { name: 'Bot', icon: Bot, href: '/bot' },
+    { name: 'Config', icon: PackageCheck, href: '/config' },
   ];
   
   return (

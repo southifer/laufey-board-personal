@@ -206,31 +206,6 @@ const BotManagement = () => {
     }
   };
   
-  const saveData = async () => {
-    try {
-      if (!user?.username) {
-        throw new Error("User is not authenticated or lacks a unique identifier.");
-      }
-      
-      const { error } = await supabase
-        .from("user_data")
-        .update({
-          bot_backup: JSON.stringify(data),
-        })
-        .eq("username", user?.username)
-        .eq("password", user?.password);
-      
-      if (error) {
-        console.error("Error saving bot backup:", error);
-        return;
-      }
-      
-      toast.success(`${data.length} item(s) saved successfully`);
-    } catch (error) {
-      console.error("Unexpected error:", error);
-    }
-  };
-  
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
@@ -417,8 +392,33 @@ const BotManagement = () => {
     return [
       {
         name: 'Save',
-        action: () => {
-          saveData()
+        icon:  '<span class="ag-icon ag-icon-save" unselectable="on" role="presentation"></span>',
+        action: async () => {
+          try {
+            if (!user?.username) {
+              throw new Error("User is not authenticated or lacks a unique identifier.");
+            }
+            
+            const { error } = await supabase
+              .from("user_data")
+              .update({
+                bot_backup: JSON.stringify(data),
+              })
+              .eq("username", user?.username)
+              .eq("password", user?.password);
+            
+            if (error) {
+              console.error("Error saving bot backup:", error);
+              return;
+            }
+            
+            toast.success(`${data.length} item(s) saved successfully`);
+
+            params.api.refreshCells({ force: true });
+
+          } catch (error) {
+            console.error("Unexpected error:", error);
+          }
         }
       },
       {
@@ -550,7 +550,8 @@ const BotManagement = () => {
     '--ag-header-column-separator-color': themeColors.borderColor,
     '--ag-header-column-separator-height': '100%',
     '--ag-alpine-active-color': themeColors.menuHoverColor,
-    
+    '--ag-checkbox-checked-color': '#007bff',
+    '--ag-range-selection-highlight-color': '#0963A9',
     overflow: 'hidden',
   };
   
@@ -559,7 +560,7 @@ const BotManagement = () => {
       <div className="text-3xl mb-4 font-bold flex gap-2">Bot Management</div>
       
       {/* First form for manual bot upload */}
-      <div className="w-full bg-main p-6 rounded shadow-md border border-secondary mb-4">
+      <div className="w-full bg-[#18181B] p-6 rounded shadow-md mb-4">
         <div className="flex items-center space-x-2 mb-4">
           <input
             onChange={(e) => setUploadFile(e.target.checked)}
@@ -627,40 +628,53 @@ const BotManagement = () => {
           </div>
         </form>
         ) : (
-          <div className="w-full bg-main p-6 rounded shadow-md border border-secondary mb-4">
+          <div className="w-full rounded mb-4">
             <input
               type="file"
               onChange={handleFileChange}
               accept=".txt"
-              className="bg-main text-sm text-white rounded block w-full p-3.5 outline-none border border-secondary"
+              className="mb-2 relative m-0 block w-full min-w-0 flex-auto cursor-pointer rounded border border-solid border-neutral-300 bg-clip-padding px-3 py-[0.32rem] font-normal leading-[2.15] text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:cursor-pointer file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit file:bg-neutral-100 file:px-3 file:py-[0.32rem] file:text-neutral-700 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] hover:file:bg-neutral-500 focus:border-primary focus:text-neutral-700 focus:shadow-te-primary focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:file:bg-neutral-700 dark:file:text-neutral-100 dark:focus:border-primary"
             />
+            <label
+              htmlFor="formFileLg"
+              className="inline-block text-neutral-700 dark:text-neutral-200"
+            >
+              Format upload: 
+              <div className="text-[0.8em]">USERNAME|PASSWORD|RECOVERY</div>
+              <div className="text-[0.8em]">USERNAME|PASSWORD|RECOVERY|MAC|RID</div>
+            </label>
             <div className="flex justify-end mt-4">
               <button
                 onClick={handleFileUpload}
                 className="bg-white text-main py-2 px-5 rounded hover:bg-gray-400 transition"
-              >
+                >
                 Upload
               </button>
             </div>
           </div>
         )}
       </div>
-      <div className="ag-theme-quartz h-[900px] shadow overflow-x-hidden" style={gridStyles}>
-        <AgGridReact
-          rowData={data?.map((item: BotBackup) => ({
-            ...item,
-            id: item.id,
-          }))}
-          getRowId={(params) => {
-            return String(params.data.id);
-          }}
-          gridOptions={gridOptions}
-          pagination
-          rowSelection={rowSelection}
-          getContextMenuItems={ContextMenu}
-          onSelectionChanged={onSelectionChanged}
-          onCellValueChanged={onCellValueChanged}
-        />
+      <div className="bg-[#18181B] p-4 ag-theme-alpine-dark shadow overflow-x-hidden rounded" style={gridStyles}>
+        <div className="mb-2 text-[0.9em]">
+          selected <u>x{selectedRowsId.length}</u> | double click to edit | right click to save
+        </div>
+        <div className="h-[900px]">
+          <AgGridReact
+            rowData={data?.map((item: BotBackup) => ({
+              ...item,
+              id: item.id,
+            }))}
+            getRowId={(params) => {
+              return String(params.data.id);
+            }}
+            gridOptions={gridOptions}
+            pagination
+            rowSelection={rowSelection}
+            getContextMenuItems={ContextMenu}
+            onSelectionChanged={onSelectionChanged}
+            onCellValueChanged={onCellValueChanged}
+          />
+        </div>
       </div>
     </div>
   );
