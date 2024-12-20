@@ -89,6 +89,7 @@ export const columns: ColDef<RowData>[] = [
   },
   {
     field: 'google_status',
+    headerName: 'Google',
     enableCellChangeFlash: true,
     filter: 'agSetColumnFilter',
     valueFormatter: (params: { value: string }) => {
@@ -149,13 +150,13 @@ export const columns: ColDef<RowData>[] = [
     field: 'gems',
     enableCellChangeFlash: true,
     filter: 'agNumberColumnFilter',
-    valueFormatter: (params: { value: number }) => numberFormat(params.value),
+    valueFormatter: (params: { value: number }) => '💎' + numberFormat(params.value),
   },
   {
     field: 'obtained_gems',
     enableCellChangeFlash: true,
     filter: 'agNumberColumnFilter',
-    valueFormatter: (params: { value: number }) => numberFormat(params.value),
+    valueFormatter: (params: { value: number }) => '⚜️' + numberFormat(params.value),
   },
   {
     field: 'mac',

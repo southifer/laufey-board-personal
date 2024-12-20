@@ -187,9 +187,6 @@ export default function Controller() {
         <div className="col-span-2 md:col-span-3 lg:col-span-3 rounded bg-[#18181B]">
           <LineChartComponent dataObject={data}/>
         </div>
-        {/* <div className="col-span-2 md:col-span-2 lg:col-span-1 h-full ">
-          <Notification dataObject={data || []}/>
-        </div> */}
       </div>
       <div className="shadow rounded overflow-x-hidden bg-[#18181B]">
         <div className="p-4">

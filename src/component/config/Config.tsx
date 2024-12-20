@@ -74,9 +74,7 @@ const Config = () => {
           },
         }
       );
-      
-      console.log(server, script)
-      
+
       toast.promise(fetchPromise, {
         loading: `Saving script to ${server}...`,
         success: "Script saved successfully!",
@@ -122,7 +120,7 @@ const Config = () => {
               </div>
               <Editor
                 width="100%"
-                height="75vh"
+                height="70vh"
                 language="json"
                 value={editorValue}
                 onChange={handleEditorChange}
@@ -130,7 +128,7 @@ const Config = () => {
                 options={{
                   selectOnLineNumbers: true,
                   theme: "vs-dark",
-                  fontSize: 16,
+                  fontSize: 14,
                 }}
               />
               <div className="flex flex-row-reverse">
