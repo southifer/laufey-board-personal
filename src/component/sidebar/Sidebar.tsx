@@ -53,7 +53,7 @@ const Sidebar = () => {
   const menuItems = [
     { name: 'Dashboard', icon: LayoutDashboard, href: '/dashboard' },
     { name: 'Controller', icon: SquareTerminal, href: '/controller' },
-    { name: 'Bot List', icon: Bot, href: '/bot' },
+    { name: 'Bot', icon: Bot, href: '/bot' },
     { name: 'Config', icon: PackageCheck, href: '/config' },
   ];
   
@@ -66,7 +66,7 @@ const Sidebar = () => {
       {/* Header */}
       <div className="flex h-16 items-center justify-between px-4">
         <h2
-          className={`p-4 text-3xl text-gray-900 dark:text-gray-100 transition-opacity duration-100 ${
+          className={`p-2 text-2xl text-gray-900 dark:text-gray-100 transition-opacity duration-500 ${
             !isOpen ? 'opacity-0 hidden' : 'opacity-100'
           }`}
         >
@@ -85,14 +85,14 @@ const Sidebar = () => {
       </div>
       
       {/* Navigation */}
-      <nav className="flex-1 space-y-1 p-5">
+      <nav className="flex-1 space-y-1 p-2">
         {menuItems.map((item) => {
           const Icon = item.icon;
           return (
             <div key={item.name} className="relative group">
               <a
                 href={item.href}
-                className={`flex items-center rounded-lg p-4 text-gray-400  ${pathname === item.href ? 'bg-main text-[#09EF69]' : 'hover:bg-main'} transition-all duration-500 ${
+                className={`flex items-center rounded p-4 text-gray-400  ${pathname === item.href ? 'bg-main text-[#09EF69]' : 'hover:bg-main'} transition-all duration-500 ${
                   isOpen ? 'justify-start' : 'justify-center'
                 }`}
               >
@@ -108,9 +108,9 @@ const Sidebar = () => {
           );
         })}
       </nav>
-      <div className="flex flex-col-reverse text-white p-4">
+      <div className="flex flex-col-reverse text-gray-400 p-4">
         <Suspense fallback={null}>
-          <div className="p-2 rounded-lg flex flex-row gap-2 hover:bg-main transition-all duration-500">
+          <div className="p-4 rounded-lg flex flex-row gap-2 hover:bg-main transition-all duration-500">
             <LogoutEvent isOpen={isOpen} />
           </div>
         </Suspense>

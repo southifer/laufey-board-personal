@@ -3,7 +3,6 @@ import { useUser } from "../../context/UserContext";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 import Editor from "@monaco-editor/react";
-import Table from "../controller/table/table";
 
 interface ConfigData {
   [key: string]: any;

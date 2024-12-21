@@ -15,8 +15,6 @@ import { useUser } from '../../../context/UserContext';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 
-import { LucideProps, RefreshCw } from "lucide-react"
-
 interface InventoryItem {
   id: number;
   name: string;

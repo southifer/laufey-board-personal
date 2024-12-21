@@ -1,6 +1,25 @@
 import { ColDef } from 'ag-grid-community';
+import MaladyImage from '../img/MaladyImage';
+import { useMemo } from 'react';
 
 const numberFormat = (number: number) => new Intl.NumberFormat().format(number);
+
+const maladySpritesMap: { [key: string]: string } = {
+  'Torn Punching Muscle': MaladyImage.TornPunch,
+  'Gem Cuts': MaladyImage.GemsCut,
+  'Grumbleteeth': MaladyImage.GrumbleTeeth,
+  'Chicken Feet': MaladyImage.ChickenFeet,
+  'Brainworms': MaladyImage.BrainWorms,
+  'None': MaladyImage.None,
+};
+
+interface MaladySpritesProps {
+  malady: string;
+}
+
+const MaladySprites = ({ malady }: MaladySpritesProps) => (
+  <img src={maladySpritesMap[malady]} alt={malady || 'Clear'} />
+);
 
 interface InventoryProps {
   id: number;
@@ -85,6 +104,7 @@ export const columns: ColDef<RowData>[] = [
   },
   {
     field: 'ping',
+    width: 120,
     enableCellChangeFlash: true,
     filter: 'agNumberColumnFilter',
     valueFormatter: (params: { value: number }) => `${params.value} ms`,
@@ -142,8 +162,16 @@ export const columns: ColDef<RowData>[] = [
   {
     field: 'malady',
     enableCellChangeFlash: true,
-    filter: 'agSetColumnFilter'
-  },
+    filter: 'agSetColumnFilter',
+    cellRenderer: (params: { value: string }) => {
+      return (
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+          <MaladySprites malady={params.value} />
+          <span style={{ marginLeft: '5px' }}>{params.value}</span>
+        </div>
+      );
+    },
+  },  
   {
     field: 'malady_expiration',
     enableCellChangeFlash: true

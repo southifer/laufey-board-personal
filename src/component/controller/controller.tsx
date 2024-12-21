@@ -17,8 +17,7 @@ import {
 } from "lucide-react";
 import Table from "./table/table";
 import { LineChartComponent } from "./chart/Chart";
-import Notification from "./notification/Notification";
-import {useUser} from "../../context/UserContext";
+import { useUser } from "../../context/UserContext";
 import { CircleCheckBig, CircleX } from "lucide-react";
 
 interface BotDetails {
