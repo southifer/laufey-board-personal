@@ -102,7 +102,16 @@ class LogViewer {
       newWindow.document.close();
 
       fetchLogs(); // Initial fetch
-      setInterval(fetchLogs, 3000); // Fetch logs every 5 seconds
+
+      const intervalId = setInterval(() => {
+        if (!newWindow.closed && newWindow.document.hasFocus()) {
+          fetchLogs();
+        }
+      }, 3000); // Fetch logs every 3 seconds
+
+      newWindow.addEventListener('beforeunload', () => {
+        clearInterval(intervalId);
+      });
     } else {
       console.error('Unable to open a new window for logs.');
     }
