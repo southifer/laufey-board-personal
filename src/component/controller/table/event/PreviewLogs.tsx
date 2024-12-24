@@ -52,46 +52,59 @@ class LogViewer {
   }
   
   public async showLogs(params: any): Promise<void> {
-    try {
-      const response = await axios.get(`http://${params.node.data.server}:8443/bot/logs`, {
-        params: { index: params.node.data.index }
-      });
-      
-      const logContent = response.data.logs
-        .map((log: string) => `<div style="font-size: 12px;">${this.parseDisplayName(log)}</div>`)
-        .join('');
-      
-      const newWindow = window.open('', 'Logs', 'width=1200,height=600');
-      if (newWindow) {
-        newWindow.document.write(`
-          <link rel="preconnect" href="https://fonts.googleapis.com">
-          <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-          <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&family=Geist:wght@100..900&display=swap" rel="stylesheet">
-          
-          <html>
-            <head>
-              <title>Logs</title>
-              <style>
-                body {
-                  font-family: 'Fira Code', sans-serif;
-                  background-color: black;
-                  color: white;
-                  padding: 20px;
-                }
-              </style>
-            </head>
-            <body>
-              <h1 class="text-lg font-bold">Logs</h1>
-              ${logContent}
-            </body>
-          </html>
-        `);
-        newWindow.document.close();
-      } else {
-        console.error('Unable to open a new window for logs.');
+    const fetchLogs = async () => {
+      try {
+        const response = await axios.get(`http://${params.node.data.server}:8443/bot/logs`, {
+          params: { index: params.node.data.index }
+        });
+        
+        const logContent = response.data.logs
+          .map((log: string) => `<div style="font-size: 12px;">${this.parseDisplayName(log)}</div>`)
+          .join('');
+        
+        if (newWindow) {
+          newWindow.document.body.innerHTML = `
+            <h1 class="text-lg font-bold">Logs</h1>
+            ${logContent}
+          `;
+        } else {
+          console.error('Unable to open a new window for logs.');
+        }
+      } catch (error) {
+        console.error('Error fetching logs:', error);
       }
-    } catch (error) {
-      console.error('Error fetching logs:', error);
+    };
+
+    const newWindow = window.open('', 'Logs', 'width=1200,height=600');
+    if (newWindow) {
+      newWindow.document.write(`
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&family=Geist:wght@100..900&display=swap" rel="stylesheet">
+        
+        <html>
+          <head>
+            <title>Logs</title>
+            <style>
+              body {
+                font-family: 'Fira Code', sans-serif;
+                background-color: black;
+                color: white;
+                padding: 20px;
+              }
+            </style>
+          </head>
+          <body>
+            <h1 class="text-lg font-bold">Logs</h1>
+          </body>
+        </html>
+      `);
+      newWindow.document.close();
+
+      fetchLogs(); // Initial fetch
+      setInterval(fetchLogs, 3000); // Fetch logs every 5 seconds
+    } else {
+      console.error('Unable to open a new window for logs.');
     }
   }
 }
