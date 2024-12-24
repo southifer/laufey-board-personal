@@ -14,6 +14,7 @@ import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-quartz.css';
 import 'ag-grid-community/styles/ag-theme-alpine.css';
 import 'ag-grid-enterprise';
+import { Checkbox } from "@mui/material";
 
 interface BotBackup {
   id: string;
@@ -331,7 +332,7 @@ const BotManagement = () => {
   const addBot = async (data: any) => {
     const requests = data.map(async (item: BotBackup) => {
       await axios.post(
-        `http://${item.server}:8000/bot/add`,
+        `http://${item.server}/bot/add`,
         null,
         {
           params: {
@@ -568,11 +569,8 @@ const BotManagement = () => {
       {/* First form for manual bot upload */}
       <div className="w-full bg-[#18181B] p-6 rounded shadow-md mb-4">
         <div className="flex items-center space-x-2 mb-4">
-          <input
+          <Checkbox 
             onChange={(e) => setUploadFile(e.target.checked)}
-            type="checkbox"
-            value="checkbox"
-            className="w-4 h-4 text-white bg-gray-100 border-gray-300 "
           />
           <label
             htmlFor="helper-checkbox"

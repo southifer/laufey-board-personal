@@ -3,7 +3,7 @@ import axios from "axios";
 export const GetBotDetails = async (serverList: string[]) => {
   try {
     const promises = serverList.map((server) =>
-      axios.get(`http://${server}:8000/bot/get`)
+      axios.get(`http://${server}/bot/get`)
         .catch((err) => {
           console.error(err);
           return null

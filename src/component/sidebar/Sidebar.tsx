@@ -110,7 +110,7 @@ const Sidebar = () => {
       </nav>
       <div className="flex flex-col-reverse text-gray-400 p-4">
         <Suspense fallback={null}>
-          <div className="p-4 rounded-lg flex flex-row gap-2 hover:bg-main transition-all duration-500">
+          <div className="p-2 rounded-lg flex flex-row gap-2 hover:bg-main transition-all duration-500">
             <LogoutEvent isOpen={isOpen} />
           </div>
         </Suspense>

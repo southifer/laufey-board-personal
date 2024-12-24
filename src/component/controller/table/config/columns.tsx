@@ -171,7 +171,7 @@ export const columns: ColDef<RowData>[] = [
         </div>
       );
     },
-  },  
+  },
   {
     field: 'malady_expiration',
     enableCellChangeFlash: true
