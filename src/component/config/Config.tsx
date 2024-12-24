@@ -21,7 +21,7 @@ const Config = () => {
       try {
         const promises = user?.serverlist?.map((server) =>
           axios
-            .get<ConfigData>(`http://${server}/bot/config`)
+            .get<ConfigData>(`http://${server}:8443/bot/config`)
             .catch((error) => {
               console.error(error);
               toast.error("Failed to fetch data. Check network or server.");
