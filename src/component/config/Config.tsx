@@ -67,7 +67,7 @@ const Config = () => {
       const script = JSON.parse(editorValue);
       
       const fetchPromise = axios.post(
-        `http://${server}/bot/config`, script, {
+        `http://${server}:8443/bot/config`, script, {
           headers: {
             "Content-Type": "text/plain",
           },

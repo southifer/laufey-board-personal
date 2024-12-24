@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 type GrowtopiaColorCode = '`0' | '`1' | '`2' | '`3' | '`4' | '`5' | '`6' | '`7' | '`8' | '`9' | '`!' | '`@' | '`#' | '`$' | '`^' | '`&' | '`w' | '`o' | '`b' | '`p' | '`q' | '`e' | '`r' | '`t' | '`a' | '`s' | '`c' | '`ì';  // All valid color codes
 
 class LogViewer {
@@ -49,39 +51,47 @@ class LogViewer {
     return cleanedParsed.endsWith('``') ? cleanedParsed.slice(0, -2) : cleanedParsed;
   }
   
-  public showLogs(params: any): void {
-    const logContent = params.node.data.console
-      .map((log: string) => `<div style="font-size: 12px;">${this.parseDisplayName(log)}</div>`)
-      .join('');
-    
-    const newWindow = window.open('', 'Logs', 'width=1200,height=600');
-    if (newWindow) {
-      newWindow.document.write(`
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&family=Geist:wght@100..900&display=swap" rel="stylesheet">
-        
-        <html>
-          <head>
-            <title>Logs</title>
-            <style>
-              body {
-                font-family: 'Fira Code', sans-serif;
-                background-color: black;
-                color: white;
-                padding: 20px;
-              }
-            </style>
-          </head>
-          <body>
-            <h1 class="text-lg font-bold">Logs</h1>
-            ${logContent}
-          </body>
-        </html>
-      `);
-      newWindow.document.close();
-    } else {
-      console.error('Unable to open a new window for logs.');
+  public async showLogs(params: any): Promise<void> {
+    try {
+      const response = await axios.get(`http://${params.node.data.server}:8443/bot/logs`, {
+        params: { index: params.node.data.index }
+      });
+      
+      const logContent = response.data.logs
+        .map((log: string) => `<div style="font-size: 12px;">${this.parseDisplayName(log)}</div>`)
+        .join('');
+      
+      const newWindow = window.open('', 'Logs', 'width=1200,height=600');
+      if (newWindow) {
+        newWindow.document.write(`
+          <link rel="preconnect" href="https://fonts.googleapis.com">
+          <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+          <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&family=Geist:wght@100..900&display=swap" rel="stylesheet">
+          
+          <html>
+            <head>
+              <title>Logs</title>
+              <style>
+                body {
+                  font-family: 'Fira Code', sans-serif;
+                  background-color: black;
+                  color: white;
+                  padding: 20px;
+                }
+              </style>
+            </head>
+            <body>
+              <h1 class="text-lg font-bold">Logs</h1>
+              ${logContent}
+            </body>
+          </html>
+        `);
+        newWindow.document.close();
+      } else {
+        console.error('Unable to open a new window for logs.');
+      }
+    } catch (error) {
+      console.error('Error fetching logs:', error);
     }
   }
 }

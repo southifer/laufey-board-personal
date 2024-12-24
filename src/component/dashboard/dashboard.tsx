@@ -25,7 +25,7 @@ export default function Dashboard() {
     const fetchData = async () => {
       try {
         const promises = (user?.serverlist || []).map((server) =>
-            axios.get(`http://${server}/bot/get`)
+            axios.get(`http://${server}:8443/bot/get`)
         );
         if (isMounted) {
           const response = await Promise.all(promises);

@@ -50,7 +50,7 @@ const RunCommand = async (
             end
           `;
           const response = await axios.post(
-            `http://${params.node.data!.server}/bot/runScript`, formattedScript, {
+            `http://${params.node.data!.server}:8443/bot/runScript`, formattedScript, {
               headers: { 'Content-Type': 'text/plain' }
             }
           );

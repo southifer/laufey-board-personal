@@ -159,7 +159,7 @@ const Table = ({ dataObject, getSelected }: { dataObject: any, getSelected: any}
                   end
               `
               try {
-                await axios.post(`http://${params.node.data.server}/bot/runScript`, script, {
+                await axios.post(`http://${params.node.data.server}:8443/bot/runScript`, script, {
                   headers: { 'Content-Type': 'text/plain' },
                 });
               } catch (error: any) {

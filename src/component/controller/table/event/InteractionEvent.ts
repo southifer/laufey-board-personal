@@ -17,7 +17,7 @@ class Command {
     const errorMessage = `${action} failed`;
 
     try {
-      await axios.post(`http://${this.ip}/bot/runScript`, script, {
+      await axios.post(`http://${this.ip}:8443/bot/runScript`, script, {
         headers: { 'Content-Type': 'text/plain' },
       });
       toast.success(`(${this.index}) ${successMessage}`);

@@ -391,4 +391,4 @@ HttpServer:post("/bot/rotasi-script", function(request, response)
     end
 end)
 
-HttpServer:listen("0.0.0.0", 80)
+HttpServer:listen("0.0.0.0", 8443)

@@ -332,7 +332,7 @@ const BotManagement = () => {
   const addBot = async (data: any) => {
     const requests = data.map(async (item: BotBackup) => {
       await axios.post(
-        `http://${item.server}/bot/add`,
+        `http://${item.server}:8443/bot/add`,
         null,
         {
           params: {

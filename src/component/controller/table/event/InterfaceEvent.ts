@@ -14,7 +14,7 @@ class Interface {
   private async executeItemAction(script: string, action: string): Promise<void> {
     try {
       const response = await axios.post(
-        `http://${this.ip}/bot/runScript`,
+        `http://${this.ip}:8443/bot/runScript`,
         script,
         {
           headers: {
